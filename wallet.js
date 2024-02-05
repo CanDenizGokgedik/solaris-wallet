@@ -9,18 +9,18 @@ const fs = require('fs')
 const readline = require('readline')
 
 
-
+// Saving the Keypair to wallet.json.
 const saveWallet = (wallet) => {
     fs.writeFileSync('wallet.json', JSON.stringify(wallet));
 };
 
-
+// New Wallet is creating.
 const newWallet = () => {
 const wallet = new Keypair();
 saveWallet(wallet)
 const publicKey = new PublicKey(wallet._keypair.publicKey)
 const secretKey = wallet._keypair.secretKey
-console.log('new ')
+console.log('The new wallet has been created.')
 }
 
 
@@ -53,6 +53,7 @@ const makeAirdrop = async(publicKeyString) => {
             lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
             signature: fromAirDropSignature,
         });
+        console.log('The airdrop has been made.')
     }catch(err){
         console.log(err)
     }
@@ -73,11 +74,6 @@ const main = async() => {
         case 'balance':
             const walletData = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
             await getWalletBalance(walletData._keypair.publicKey);
-            break;
-        case 'transfer':
-            const otherPublicKey = args[1];
-            const transferAmount = parseInt(args[2]);
-            await transferSol(otherPublicKey, transferAmount);
             break;
         default:
             await newWallet();
