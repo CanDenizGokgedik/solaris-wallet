@@ -17,3 +17,4 @@ node wallet.js balance
 node wallet.js airdrop
 ```
 
+I will continue with this wallet project in the coming days. I will add the transfer functionality and create a user interface.
