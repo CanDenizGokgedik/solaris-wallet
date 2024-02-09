@@ -102,7 +102,6 @@ const makeAirdrop = async(publicKeyString) => {
     }catch(err){
         console.log(err)
     }
-
 }
 
 const main = async() => {
