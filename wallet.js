@@ -114,11 +114,11 @@ const main = async() => {
             break;
         case 'airdrop':
             const walletData1 = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
-            await makeAirdrop(walletData1._keypair.publicKey);
+            await makeAirdrop(walletData1[0]._keypair.publicKey);
             break;
         case 'balance':
             const walletData = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
-            await getWalletBalance(walletData._keypair.publicKey);
+            await getWalletBalance(walletData[0]._keypair.publicKey);
             break;
         default:
             await newWallet();
