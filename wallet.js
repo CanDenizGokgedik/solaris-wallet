@@ -127,11 +127,6 @@ const main = async() => {
             await newWallet();
             
     }
-    
-
-    //await getWalletBalance()
-    //await makeAirdrop()
-    //await getWalletBalance()
 }
 
 main()
