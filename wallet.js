@@ -46,9 +46,12 @@ const saveWallet = async(wallet) => {
                 }
             }
             // The last created wallet is pushing to the array.
-            let balance = await getWalletBalance(wallet._keypair.publicKey);
-            let singleData = wallet._keypair + ',' + balance
-            allData.push(wallet._keypair);
+            let walletBalance = await getWalletBalance(wallet._keypair.publicKey);
+            let singleData = {
+                _keypair: wallet._keypair,
+                balance: walletBalance
+            };
+            allData.push(singleData);
 
             // The array which including the all wallets data, writing into wallet.json.
             fs.writeFile('wallet.json',JSON.stringify(allData), (err)=>{if(err){console.log(err)}});
