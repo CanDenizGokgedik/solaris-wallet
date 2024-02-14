@@ -10,10 +10,10 @@ const readline = require('readline')
 
 
 // Saving the Keypair to wallet.json.
-const saveWallet = (wallet) => {
+const saveWallet = async(wallet) => {
     //fs.writeFile('wallet.json',wallet, (err)=>{console.log(err)});
 
-    fs.readFile('wallet.json', (err,data)=>{
+    fs.readFile('wallet.json', async(err,data)=>{
 
         if(err){
             console.log(err);
@@ -46,7 +46,9 @@ const saveWallet = (wallet) => {
                 }
             }
             // The last created wallet is pushing to the array.
-            allData.push(wallet);
+            let balance = await getWalletBalance(wallet._keypair.publicKey);
+            let singleData = wallet._keypair + ',' + balance
+            allData.push(wallet._keypair);
 
             // The array which including the all wallets data, writing into wallet.json.
             fs.writeFile('wallet.json',JSON.stringify(allData), (err)=>{if(err){console.log(err)}});
@@ -80,6 +82,7 @@ const getWalletBalance = async(publicKeyString) => {
         const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
         const walletBalance = await connection.getBalance(publicKey)
         console.log('Wallet Balance: ' + walletBalance)
+        return walletBalance;
     }catch(err){
         console.log(err)
     }
