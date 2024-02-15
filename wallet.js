@@ -64,6 +64,41 @@ const saveWallet = async(wallet) => {
     
 };
 
+const updateBalance = async(wallet)=>{
+    fs.readFile('wallet.json', async(err,data)=>{
+        if(err){
+            console.log(err);
+        }else{
+
+            let tempData = {};
+            if(data != ''){
+                tempData = JSON.parse(data);
+            }
+
+            if(tempData[0] != null){
+                let dataLength = tempData.length;
+                
+                for(let i=0; i<dataLength; i++){
+                    if(wallet._keypair == tempData[i]._keypair){
+                        console.log('same wallet');
+                    }
+                }
+
+
+            }
+
+
+
+
+        }
+
+        
+
+
+    });
+}
+
+
 // New Wallet is creating.
 const newWallet = () => {
     const wallet = new Keypair();
@@ -131,6 +166,8 @@ const main = async() => {
             break;
         default:
             await newWallet();
+            const walletData3 = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
+            await updateBalance(walletData3)
             
     }
 }
