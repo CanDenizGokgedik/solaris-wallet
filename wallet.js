@@ -65,6 +65,8 @@ const saveWallet = async(wallet) => {
 };
 
 const updateBalance = async(wallet)=>{
+
+    //console.log(wallet._keypair);
     fs.readFile('wallet.json', async(err,data)=>{
         if(err){
             console.log(err);
@@ -76,11 +78,14 @@ const updateBalance = async(wallet)=>{
             }
 
             if(tempData[0] != null){
+                console.log(tempData[11]._keypair);
                 let dataLength = tempData.length;
-                
+                console.log("update balance lenght: "+dataLength )
                 for(let i=0; i<dataLength; i++){
                     if(wallet._keypair == tempData[i]._keypair){
                         console.log('same wallet');
+                    }else{
+                        console.log('is not same wallet.')
                     }
                 }
 
@@ -166,8 +171,14 @@ const main = async() => {
             break;
         default:
             await newWallet();
-            const walletData3 = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
-            await updateBalance(walletData3)
+            console.log("switch case after new wallet")
+            const walletData3 =  await JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
+            let walletLength = 0;
+            if(walletData3[0] != null) {
+                walletLength = walletData3.length ;
+            }
+            console.log("switchcase wallet length:"+walletLength)
+            await updateBalance(walletData3[walletLength-1])
             
     }
 }
