@@ -66,7 +66,7 @@ const saveWallet = async(wallet) => {
 
 const updateBalance = async(wallet)=>{
 
-    //console.log(wallet._keypair);
+    console.log(wallet._keypair);
     fs.readFile('wallet.json', async(err,data)=>{
         if(err){
             console.log(err);
@@ -81,7 +81,7 @@ const updateBalance = async(wallet)=>{
                 console.log(tempData[11]._keypair);
                 let dataLength = tempData.length;
                 console.log("update balance lenght: "+dataLength )
-                for(let i=0; i<dataLength; i++){
+                for(let i=0; i<dataLength; i++){ 
                     if(wallet._keypair == tempData[i]._keypair){
                         console.log('same wallet');
                     }else{
